@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        
+        h1 {
+            color: #333;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        #inputBox {
+            margin-top: 20px;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Number Guessing Game</h1>
+    <p>Guess the number between 1 and 100:</p>
+    <input type="number" id="guessInput" min="1" max="100">
+    <button onclick="checkGuess()">Submit Guess</button>
+    <button onclick="restartGame()">Restart Game</button>
+    <div id="result"></div>
+
+    <script>
+        let secretNumber;
+        let guessAttempts = 0;
+
+        function startGame() {
+            secretNumber = Math.floor(Math.random() * 100) + 1;
+            guessAttempts = 0;
+            document.getElementById("result").innerText = "";
+        }
+
+        function checkGuess() {
+            const userGuess = parseInt(document.getElementById("guessInput").value);
+
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                alert("Please enter a valid number between 1 and 100.");
+                return;
+            }
+
+            guessAttempts++;
+
+            if (userGuess === secretNumber) {
+                document.getElementById("result").innerText = "Congratulations! You guessed the number in ${guessAttempts} attempts.";
+            } else if (userGuess < secretNumber) {
+                document.getElementById("result").innerText = "Try a higher number.";
+            } else {
+                document.getElementById("result").innerText = "Try a lower number.";
+            }
+        }
+
+        function restartGame() {
+            document.getElementById("guessInput").value = "";
+            startGame();
+        }
+
+        // Initial game start
+        startGame();
+    </script>
+</body>
+</html>
